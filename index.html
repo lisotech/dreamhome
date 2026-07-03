@@ -6,6 +6,12 @@
     <title>DreamHome Realty</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        /* Custom sizing to keep card sliders neat */
+        .card-swiper { width: 100%; height: 240px; }
+        .swiper-button-next, .swiper-button-prev { scale: 0.6; color: white !important; }
+        .swiper-pagination-bullet-active { background: white !important; }
+    </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -20,8 +26,8 @@
     </nav>
 
     <section class="container mx-auto my-8 px-4">
-        <h2 class="text-3xl font-bold mb-6">Featured Listings</h2>
-        <div class="swiper mySwiper h-96 rounded-xl shadow-lg overflow-hidden">
+        <h2 class="text-3xl font-bold mb-6">Featured Showcase</h2>
+        <div class="swiper mainSwiper h-96 rounded-xl shadow-lg overflow-hidden">
             <div class="swiper-wrapper">
                 <div class="swiper-slide relative bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200')">
                     <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-8 text-white">
@@ -38,8 +44,8 @@
                     </div>
                 </div>
             </div>
-            <div class="swiper-button-next text-white"></div>
-            <div class="swiper-button-prev text-white"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
     </section>
 
@@ -58,35 +64,49 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // Initialize Swiper Slider
-        var swiper = new Swiper(".mySwiper", {
+        // Initialize Top Hero Slider
+        new Swiper(".mainSwiper", {
             navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
             loop: true,
-            autoplay: { delay: 4000 }
+            autoplay: { delay: 5000 }
         });
 
         // ==========================================
-        // PROPERTY LIST DATA (3 Items Per Section)
+        // PROPERTY LIST DATA (4 Pictures per Property)
         // ==========================================
-        
         const rentProperties = [
             {
                 id: "house_rent_101",
                 title: "Cozy Suburban House",
                 price: "K1,800 / mo",
-                image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500"
+                images: [
+                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500", // Exterior
+                    "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500", // Kitchen
+                    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=500", // Living Room
+                    "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=500"  // Bedroom
+                ]
             },
             {
                 id: "house_rent_102",
                 title: "Modern Executive Apartment",
                 price: "K4,500 / mo",
-                image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=500"
+                images: [
+                    "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=500",
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500",
+                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500",
+                    "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500"
+                ]
             },
             {
                 id: "house_rent_103",
                 title: "Charming Lakefront Cottage",
                 price: "K3,200 / mo",
-                image: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=500"
+                images: [
+                    "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=500",
+                    "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=500",
+                    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500",
+                    "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=500"
+                ]
             }
         ];
 
@@ -95,54 +115,89 @@
                 id: "house_sale_201",
                 title: "Sunset Penthouse",
                 price: "K850,000",
-                image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=500"
+                images: [
+                    "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=500",
+                    "https://images.unsplash.com/photo-1539699013867-de394857e5b3?w=500",
+                    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500"
+                ]
             },
             {
                 id: "house_sale_202",
                 title: "Luxury Family Villa",
                 price: "K2,100,000",
-                image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500"
+                images: [
+                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500",
+                    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500",
+                    "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=500",
+                    "https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?w=500"
+                ]
             },
             {
                 id: "house_sale_203",
                 title: "Contemporary Minimalist Mansion",
                 price: "K4,350,000",
-                image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500"
+                images: [
+                    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500",
+                    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500",
+                    "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=500",
+                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=500"
+                ]
             }
         ];
 
         // ==========================================
-        // DYNAMIC RENDERING ENGINE
+        // CAROUSEL GENERATOR & PROPERTY ENGINE
         // ==========================================
-        function renderProperties() {
+        function createCardHtml(property, buttonColor, buttonText) {
+            // Map over the images array to generate individual internal slides
+            const imageSlides = property.images.map(img => `
+                <div class="swiper-slide">
+                    <img src="${img}" alt="${property.title}" class="w-full h-full object-cover">
+                </div>
+            `).join('');
+
+            return `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border">
+                    <div class="swiper card-swiper relative">
+                        <div class="swiper-wrapper">
+                            ${imageSlides}
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold">${property.title}</h3>
+                        <p class="text-gray-600 font-semibold">${property.price}</p>
+                        <button onclick="processBooking('${property.id}')" class="mt-4 w-full ${buttonColor} text-white py-2 rounded-lg font-semibold transition hover:brightness-90">
+                            ${buttonText}
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAll() {
             const rentContainer = document.getElementById('rent-container');
             const saleContainer = document.getElementById('sale-container');
 
-            rentContainer.innerHTML = rentProperties.map(property => `
-                <div class="bg-white rounded-lg shadow-md overflow-hidden border transition transform hover:-translate-y-1 hover:shadow-lg">
-                    <img src="${property.image}" alt="${property.title}" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-xl font-bold">${property.title}</h3>
-                        <p class="text-gray-600 font-semibold">${property.price}</p>
-                        <button onclick="processBooking('${property.id}')" class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 font-semibold">Rent / Secure Now</button>
-                    </div>
-                </div>
-            `).join('');
+            rentContainer.innerHTML = rentProperties.map(p => createCardHtml(p, 'bg-blue-600', 'Rent / Secure Now')).join('');
+            saleContainer.innerHTML = saleProperties.map(p => createCardHtml(p, 'bg-green-600', 'Place Holding Deposit')).join('');
 
-            saleContainer.innerHTML = saleProperties.map(property => `
-                <div class="bg-white rounded-lg shadow-md overflow-hidden border transition transform hover:-translate-y-1 hover:shadow-lg">
-                    <img src="${property.image}" alt="${property.title}" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-xl font-bold">${property.title}</h3>
-                        <p class="text-gray-600 font-semibold">${property.price}</p>
-                        <button onclick="processBooking('${property.id}')" class="mt-4 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 font-semibold">Place Holding Deposit</button>
-                    </div>
-                </div>
-            `).join('');
+            // Core initialization of all dynamic card sliders after they append into HTML DOM
+            new Swiper(".card-swiper", {
+                nested: true, // Prevents interfering with top main slider
+                pagination: { el: ".swiper-pagination", clickable: true },
+                navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+                loop: true
+            });
         }
 
-        renderProperties();
+        renderAll();
 
+        // Backend Connection Logic
         async function processBooking(houseId) {
             try {
                 const response = await fetch('http://localhost:5000/api/checkout/verify-and-pay', {
@@ -159,7 +214,7 @@
                 }
             } catch (error) {
                 console.error("Error:", error);
-                alert("Could not connect to verification server. Ensure your Node.js backend is running.");
+                alert("Could not reach checkout server. Make sure your local Node.js server is up.");
             }
         }
     </script>
