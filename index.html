@@ -7,9 +7,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
-        /* Custom sizing to keep card sliders neat */
+        /* Main Hero Slider custom heights */
+        .mainSwiper { width: 100%; height: 384px; }
+
+        /* Card Sliders custom heights */
         .card-swiper { width: 100%; height: 240px; }
-        .swiper-button-next, .swiper-button-prev { scale: 0.6; color: white !important; }
+
+        /* ─── MAKE THE < AND > ARROWS SMALLER ─── */
+        /* Targets both the main hero slider and small card sliders */
+        .swiper-button-next::after, 
+        .swiper-button-prev::after {
+            font-size: 18px !important; /* Shrunk from 44px to 18px */
+            font-weight: bold;
+        }
+
+        /* Adjust button background container to fit smaller arrows cleanly */
+        .swiper-button-next, 
+        .swiper-button-prev {
+            background-color: rgba(0, 0, 0, 0.4);
+            width: 32px !important;
+            height: 32px !important;
+            border-radius: 50%;
+            color: white !important;
+        }
+
+        .swiper-button-next:hover, 
+        .swiper-button-prev:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
         .swiper-pagination-bullet-active { background: white !important; }
     </style>
 </head>
@@ -27,7 +53,7 @@
 
     <section class="container mx-auto my-8 px-4">
         <h2 class="text-3xl font-bold mb-6">Featured Showcase</h2>
-        <div class="swiper mainSwiper h-96 rounded-xl shadow-lg overflow-hidden">
+        <div class="swiper mainSwiper rounded-xl shadow-lg overflow-hidden">
             <div class="swiper-wrapper">
                 <div class="swiper-slide relative bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200')">
                     <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-8 text-white">
@@ -71,19 +97,17 @@
             autoplay: { delay: 5000 }
         });
 
-        // ==========================================
         // PROPERTY LIST DATA (4 Pictures per Property)
-        // ==========================================
         const rentProperties = [
             {
                 id: "house_rent_101",
                 title: "Cozy Suburban House",
                 price: "K1,800 / mo",
                 images: [
-                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500", // Exterior
-                    "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500", // Kitchen
-                    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=500", // Living Room
-                    "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=500"  // Bedroom
+                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500",
+                    "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500",
+                    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=500",
+                    "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=500"
                 ]
             },
             {
@@ -146,11 +170,8 @@
             }
         ];
 
-        // ==========================================
         // CAROUSEL GENERATOR & PROPERTY ENGINE
-        // ==========================================
         function createCardHtml(property, buttonColor, buttonText) {
-            // Map over the images array to generate individual internal slides
             const imageSlides = property.images.map(img => `
                 <div class="swiper-slide">
                     <img src="${img}" alt="${property.title}" class="w-full h-full object-cover">
@@ -186,9 +207,8 @@
             rentContainer.innerHTML = rentProperties.map(p => createCardHtml(p, 'bg-blue-600', 'Rent / Secure Now')).join('');
             saleContainer.innerHTML = saleProperties.map(p => createCardHtml(p, 'bg-green-600', 'Place Holding Deposit')).join('');
 
-            // Core initialization of all dynamic card sliders after they append into HTML DOM
             new Swiper(".card-swiper", {
-                nested: true, // Prevents interfering with top main slider
+                nested: true,
                 pagination: { el: ".swiper-pagination", clickable: true },
                 navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
                 loop: true
@@ -197,7 +217,6 @@
 
         renderAll();
 
-        // Backend Connection Logic
         async function processBooking(houseId) {
             try {
                 const response = await fetch('http://localhost:5000/api/checkout/verify-and-pay', {
