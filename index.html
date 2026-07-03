@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamHome Realty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <nav class="bg-white shadow-md p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-600">DreamHome</h1>
+            <div class="space-x-6">
+                <a href="#rent" class="hover:text-blue-600 font-medium">For Rent</a>
+                <a href="#sale" class="hover:text-blue-600 font-medium">For Sale</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container mx-auto my-8 px-4">
+        <h2 class="text-3xl font-bold mb-6">Featured Listings</h2>
+        <div class="swiper mySwiper h-96 rounded-xl shadow-lg overflow-hidden">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide relative bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200')">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-8 text-white">
+                        <span class="bg-green-500 w-max px-3 py-1 rounded text-sm font-semibold mb-2">FOR SALE</span>
+                        <h3 class="text-2xl font-bold">Luxury Modern Villa</h3>
+                        <p class="text-xl">K25,000,000</p>
+                    </div>
+                </div>
+                <div class="swiper-slide relative bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200')">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-8 text-white">
+                        <span class="bg-blue-500 w-max px-3 py-1 rounded text-sm font-semibold mb-2">FOR RENT</span>
+                        <h3 class="text-2xl font-bold">Urban Minimalist Apartment</h3>
+                        <p class="text-xl">K15,000 / mo</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-button-next text-white"></div>
+            <div class="swiper-button-prev text-white"></div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 space-y-16 my-12">
+        
+        <section id="rent">
+            <h2 class="text-3xl font-bold border-b-2 border-blue-500 pb-2 mb-6">Properties For Rent</h2>
+            <div id="rent-container" class="grid md:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section id="sale">
+            <h2 class="text-3xl font-bold border-b-2 border-green-500 pb-2 mb-6">Properties For Sale</h2>
+            <div id="sale-container" class="grid md:grid-cols-3 gap-6"></div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Initialize Swiper Slider
+        var swiper = new Swiper(".mySwiper", {
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+            loop: true,
+            autoplay: { delay: 4000 }
+        });
+
+        // ==========================================
+        // PROPERTY LIST DATA (3 Items Per Section)
+        // ==========================================
+        
+        const rentProperties = [
+            {
+                id: "house_rent_101",
+                title: "Cozy Suburban House",
+                price: "K1,800 / mo",
+                image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500"
+            },
+            {
+                id: "house_rent_102",
+                title: "Modern Executive Apartment",
+                price: "K4,500 / mo",
+                image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=500"
+            },
+            {
+                id: "house_rent_103",
+                title: "Charming Lakefront Cottage",
+                price: "K3,200 / mo",
+                image: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=500"
+            }
+        ];
+
+        const saleProperties = [
+            {
+                id: "house_sale_201",
+                title: "Sunset Penthouse",
+                price: "K850,000",
+                image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=500"
+            },
+            {
+                id: "house_sale_202",
+                title: "Luxury Family Villa",
+                price: "K2,100,000",
+                image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500"
+            },
+            {
+                id: "house_sale_203",
+                title: "Contemporary Minimalist Mansion",
+                price: "K4,350,000",
+                image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500"
+            }
+        ];
+
+        // ==========================================
+        // DYNAMIC RENDERING ENGINE
+        // ==========================================
+        function renderProperties() {
+            const rentContainer = document.getElementById('rent-container');
+            const saleContainer = document.getElementById('sale-container');
+
+            rentContainer.innerHTML = rentProperties.map(property => `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border transition transform hover:-translate-y-1 hover:shadow-lg">
+                    <img src="${property.image}" alt="${property.title}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold">${property.title}</h3>
+                        <p class="text-gray-600 font-semibold">${property.price}</p>
+                        <button onclick="processBooking('${property.id}')" class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 font-semibold">Rent / Secure Now</button>
+                    </div>
+                </div>
+            `).join('');
+
+            saleContainer.innerHTML = saleProperties.map(property => `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border transition transform hover:-translate-y-1 hover:shadow-lg">
+                    <img src="${property.image}" alt="${property.title}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold">${property.title}</h3>
+                        <p class="text-gray-600 font-semibold">${property.price}</p>
+                        <button onclick="processBooking('${property.id}')" class="mt-4 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 font-semibold">Place Holding Deposit</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        renderProperties();
+
+        async function processBooking(houseId) {
+            try {
+                const response = await fetch('http://localhost:5000/api/checkout/verify-and-pay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ houseId: houseId })
+                });
+                const data = await response.json();
+
+                if (response.ok && data.url) {
+                    window.location.href = data.url;
+                } else {
+                    alert(data.message || "Sorry, this house is no longer available.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Could not connect to verification server. Ensure your Node.js backend is running.");
+            }
+        }
+    </script>
+</body>
+</html>
